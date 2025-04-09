@@ -1,6 +1,6 @@
 #!/bin/bash
 
-DOTFILES=$HOME/.dotfiles
+DOTFILES=$HOME/dotfiles
 source $DOTFILES/scripts/helpers.sh
 
 echo "Installing zsh"

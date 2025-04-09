@@ -1,6 +1,6 @@
 #!/bin/bash
 
-DOTFILES=$HOME/.dotfiles
+DOTFILES=$HOME/dotfiles
 source $DOTFILES/scripts/helpers.sh
 
 print_stage "Installing terminal applications"
@@ -20,37 +20,37 @@ fc-cache -fv
 
 # Installing terminal-based tools
 toDownload=(
-    autojump
-    curl
-    direnv
-    ffmpeg
-    fzf
-    gcc
-    gpg
-    htop
-    jq
-    lua5.1
-    make
-    neofetch
-    pandoc
-    pass
-    poppler-utils
-    ripgrep
-    stow
-    tesseract-ocr
-    tldr
-    tmux
-    tree
-    unzip
-    vim
-    imagemagick
-    luarocks
-    libmagickwand-dev
+  autojump
+  curl
+  direnv
+  ffmpeg
+  fzf
+  gcc
+  gpg
+  htop
+  jq
+  lua5.1
+  make
+  neofetch
+  pandoc
+  pass
+  poppler-utils
+  ripgrep
+  stow
+  tesseract-ocr
+  tldr
+  tmux
+  tree
+  unzip
+  vim
+  imagemagick
+  luarocks
+  libmagickwand-dev
 )
 
 for i in "${toDownload[@]}"; do
-	print_info "Installing $i"
-	sudo apt install -y $i
+  print_info "Installing $i"
+  sudo apt install -y $i
 done
 
 # tmux
@@ -64,7 +64,6 @@ make && sudo make install
 cd ..
 rm -rf tmux.tar.gz tmux-*/
 sudo apt autoremove
-
 
 # neovim
 print_info "Installing neovim"
@@ -90,11 +89,11 @@ sudo mv ./ripgrep_all*/rga* /usr/local/bin/
 # Install github cli
 print_info "Installing GitHub CLI"
 type -p curl >/dev/null || (sudo apt update && sudo apt install curl -y)
-curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg \
-&& sudo chmod go+r /usr/share/keyrings/githubcli-archive-keyring.gpg \
-&& echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null \
-&& sudo apt update \
-&& sudo apt install gh -y
+curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg &&
+  sudo chmod go+r /usr/share/keyrings/githubcli-archive-keyring.gpg &&
+  echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list >/dev/null &&
+  sudo apt update &&
+  sudo apt install gh -y
 
 # Install zeoxide
 print_info "Installing zeoxide"
@@ -129,8 +128,7 @@ rm -rf fd.deb
 
 # Install atuin
 print_info "Installing atuin"
-bash <(curl https://raw.githubusercontent.com/atuinsh/atuin/main/install.sh)       
+bash <(curl https://raw.githubusercontent.com/atuinsh/atuin/main/install.sh)
 atuin import auto
-
 
 print_success "Done!"
