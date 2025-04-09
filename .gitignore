@@ -1,0 +1,6 @@
+backup/
+*.bak
+private/*
+temp/
+work/
+.DS_Store

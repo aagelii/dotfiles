@@ -1,0 +1,131 @@
+[user]
+    # Email
+    email = aagelii17@gmail.com
+    # Name
+    name = Axel Agelii
+    # ssh key
+    signingkey = ~/.ssh/id_ed25519.pub
+[alias]
+    # Git tree
+    tree = log --all --decorate --oneline --graph
+    # Space saver
+    compact = !git reflog expire --expire=0 --all && git repack -ad && git prune && git gc
+    # Get gitignores
+    gitignore = "!gi() { curl -sL https://www.toptal.com/developers/gitignore/api/$@ ;}; gi"
+    # Ignore files only locally
+    ignore = update-index --assume-unchanged
+    unignore = update-index --no-assume-unchanged
+    ignored = !git ls-files -v | grep "^[[:lower:]]"
+    # Undo last commit but keep changed files in stage
+    uncommit = reset --soft HEAD~1
+    # Remove file(s) from Git but not from disk
+    untrack = rm --cache --
+    # Git one-line log
+    lol = log --oneline --graph --all
+[color]
+    # Color on
+    ui = auto
+[core]
+    # Global gitignore
+    excludesfile = ~/.gitignore_global
+    # Nvim
+    editor = nvim
+    # Use delta
+    pager = delta
+[commit]
+    # Sign commits
+    gpgsign = true
+    # Shows diff in commit message template
+    verbose = true
+# Catppuccin theme
+[delta "catppuccin-mocha"]
+    blame-palette = "#1e1e2e #181825 #11111b #313244 #45475a"
+    commit-decoration-style = "box ul"
+    dark = true
+    file-decoration-style = "#cdd6f4"
+    file-style = "#cdd6f4"
+    hunk-header-decoration-style = "box ul"
+    hunk-header-file-style = "bold"
+    hunk-header-line-number-style = "bold #a6adc8"
+    hunk-header-style = "file line-number syntax"
+    line-numbers = true
+    line-numbers-left-style = "#6c7086"
+    line-numbers-minus-style = "bold #f38ba8"
+    line-numbers-plus-style = "bold #a6e3a1"
+    line-numbers-right-style = "#6c7086"
+    line-numbers-zero-style = "#6c7086"
+    # 25% red 75% base
+    minus-emph-style = "bold syntax #53394c"
+    # 10% red 90% base
+    minus-style = "syntax #35293b"
+    # 25% green 75% base
+    plus-emph-style = "bold syntax #40504b"
+    # 10% green 90% base
+    plus-style = "syntax #2c333a"
+    # Should match the name of the bat theme
+    syntax-theme = "Catppuccin-mocha"
+# Delta configuration
+[delta]
+    navigate = true    # use n and N to move between diff sections
+    light = false
+    side-by-side = true
+    line-numbers = true
+    features = catppuccin-mocha
+[diff]
+    # Zebra mode for diff
+    colorMoved = default
+    # Use better, descriptive initials (c, i, w) instead of a/b.
+    mnemonicPrefix = true
+    # Show renames/moves as such
+    renames = true
+    # Display submodule-related information (commit listings)
+    submodule = log
+[gpg]
+    # Tell git about my ssh key
+    format = ssh
+[init]
+    # "main" as main branch
+    defaultBranch = main
+[interactive]
+    # Use delta
+    diffFilter = delta --color-only
+[merge]
+    # Diff3 conflict style
+    conflictstyle = diff3
+    tool = diffview
+[mergetool]
+    prompt = false
+    keepBackup = false
+[mergetool "diffview"]
+    cmd = nvim -n -c "DiffviewOpen" "$MERGE"
+    # Don't use diffview 
+    # layout = "LOCAL,BASE,REMOTE / MERGED"
+[push]
+    # Push only if current branch if its named upstream is identical
+    default = simple
+# [pull]
+#     rebase = merges
+[rebase]
+    # Autosquash - see https://git-scm.com/docs/git-rebase#Documentation/git-rebase.txt---autosquash
+    autosquash = true
+# Force ssh
+[url "git@github.com:"]
+    insteadOf = "https://github.com/"
+[transfer]
+    # Avoid data corruption
+    fsckobjects = true
+[fetch]
+    # Avoid data corruption
+    fsckobjects = true
+[receive]
+    # Avoid data corruption
+    fsckobjects = true
+
+# Snippet to use different git settings in directory
+[includeIf "gitdir:~/projects/"]
+    path = "~/projects/.gitconfig"
+[rerere]
+    # Remember how conflicts were resolved
+    enabled = true
+# [maintenance]
+# 	repo = /Users/ryanchhong/.dotfiles

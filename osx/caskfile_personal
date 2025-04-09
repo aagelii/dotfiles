@@ -1,0 +1,8 @@
+cask "anki"
+cask "bartender"
+cask "calibre"
+cask "daisydisk"
+cask "discord"
+cask "readdle-spark"
+cask "signal"
+cask "via"
