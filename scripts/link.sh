@@ -1,5 +1,5 @@
 #!/bin/bash
-DOTFILES=$HOME/.dotfiles
+DOTFILES=$HOME/dotfiles
 BACKUP=$DOTFILES/backup
 source $DOTFILES/scripts/helpers.sh
 
@@ -11,32 +11,31 @@ usage='Usage: ./link.sh [-n] [-f] {private, common, osx, arch, ubuntu}
 DRY_RUN=0
 FORCE=0
 
-while getopts 'nf' opts
-do
-	case $opts in
-		n ) DRY_RUN=1;;
-		f ) FORCE=1;;
-		* ) echo "$usage"
-			exit 1;;
-	esac
+while getopts 'nf' opts; do
+  case $opts in
+  n) DRY_RUN=1 ;;
+  f) FORCE=1 ;;
+  *)
+    echo "$usage"
+    exit 1
+    ;;
+  esac
 done
-shift $((OPTIND-1))
+shift $((OPTIND - 1))
 
 mkdir -p $BACKUP
 #Make symlinks
-for app in "$@";
-do
+for app in "$@"; do
   print_stage "Installing $app"
 
   # Avoid conflicts
   CONFLICTS=$(stow --simulate --no-folding --verbose "$app" 2>&1 | awk '/\* existing target is/ {print $NF}')
   for filename in ${CONFLICTS[@]}; do
     if [[ -f $HOME/$filename || -L $HOME/$filename ]]; then
-      if [[ $FORCE -eq 1 ]];
-      then
+      if [[ $FORCE -eq 1 ]]; then
         echo "MOVING: $filename"
         DIRECTORY="$(dirname $filename)"
-          if [[ $DRY_RUN -eq 0 ]]; then
+        if [[ $DRY_RUN -eq 0 ]]; then
           if [[ $DIRECTORY != "." ]]; then
             mkdir -p $BACKUP/$DIRECTORY
           fi

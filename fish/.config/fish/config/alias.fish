@@ -24,7 +24,7 @@ alias vimbackup='cd ~/.vim/tmp'
 # Access common config files
 alias vimrc="vim ~/.vimrc"
 alias fishconfig="cd ~/.config/fish"
-alias dotfiles="cd ~/.dotfiles"
+alias dotfiles="cd ~/dotfiles"
 
 # DL Youtube
 alias dlaudio="yt-dlp --add-metadata --embed-thumbnail --extract-audio --audio-format mp3 -o '~/Music/%(artist)s - %(title)s.%(ext)s'"
