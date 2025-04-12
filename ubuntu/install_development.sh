@@ -14,12 +14,6 @@ print_info "Installing pnpm"
 curl -fsSL https://get.pnpm.io/install.sh | sh -
 pnpm install-completion zsh
 
-# Install Miniconda
-print_info "Installing miniconda"
-wget -O $DOTFILES/temp/miniconda.sh https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
-chmod a+x $DOTFILES/temp/miniconda.sh
-$DOTFILES/temp/miniconda.sh
-
 # Install micromamba
 print_info "Installing micromamba"
 "${SHELL}" <(curl -L micro.mamba.pm/install.sh)

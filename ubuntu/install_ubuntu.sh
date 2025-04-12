@@ -42,6 +42,6 @@ fi
 
 # Install config files
 print_info "Installing config files"
-$DOTFILES/scripts/link.sh -f atuin bash bat conda fish git gpg kitty lazygit mamba nvim scripts ssh starship tmux vim zsh
+$DOTFILES/scripts/link.sh -f atuin bash bat conda git gpg kitty lazygit mamba nvim scripts ssh starship tmux vim zsh
 bat cache --build
 
