@@ -9,9 +9,9 @@ done
 eval "$(atuin init zsh)"
 
 # fnm
-FNM_PATH="/home/destfu/.local/share/fnm"
+FNM_PATH="$HOME/.local/share/fnm"
 if [ -d "$FNM_PATH" ]; then
-  export PATH="/home/destfu/.local/share/fnm:$PATH"
+  export PATH="$HOME/.local/share/fnm:$PATH"
   eval "`fnm env`"
 fi
 
@@ -23,10 +23,11 @@ case ":$PATH:" in
 esac
 # pnpm end
 
+
 # >>> mamba initialize >>>
 # !! Contents within this block are managed by 'micromamba shell init' !!
 export MAMBA_EXE='/home/destfu/.local/bin/micromamba';
-export MAMBA_ROOT_PREFIX='/home/destfu/.local/share/mamba';
+export MAMBA_ROOT_PREFIX='/home/destfu/micromamba';
 __mamba_setup="$("$MAMBA_EXE" shell hook --shell zsh --root-prefix "$MAMBA_ROOT_PREFIX" 2> /dev/null)"
 if [ $? -eq 0 ]; then
     eval "$__mamba_setup"

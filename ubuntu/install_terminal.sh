@@ -69,7 +69,7 @@ sudo apt autoremove
 print_info "Installing neovim"
 wget -O nvim.tar.gz https://github.com/neovim/neovim/releases/download/v0.10.0/nvim-linux64.tar.gz
 tar -xzvf nvim.tar.gz
-mv -r nvim-linux64 /usr/local/bin/
+mv nvim-linux64 /usr/local/bin/
 
 # tmux plugin manager
 print_info "Installing tmux plugin manager"

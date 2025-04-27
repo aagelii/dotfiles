@@ -29,13 +29,6 @@ sudo apt -y install gnome-tweaks
 
 # sudo apt install -y firefox
 
-# Install Spotify
-print_info "Installing Spotify"
-curl -sS https://download.spotify.com/debian/pubkey_7A3A762FAFD4A51F.gpg | sudo gpg --dearmor --yes -o /etc/apt/trusted.gpg.d/spotify.gpg
-echo "deb http://repository.spotify.com stable non-free" | sudo tee /etc/apt/sources.list.d/spotify.list
-sudo apt update
-sudo apt install -y spotify-client
-
 # Install kitty
 print_info "Installing kitty"
 curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin
@@ -80,12 +73,6 @@ Terminal=false
 Type=Application
 Categories=Development;
 EOL
-
-# Install Obsidian
-print_info "Installing Postman"
-wget -O obsidian.deb https://github.com/obsidianmd/obsidian-releases/releases/download/v1.3.7/obsidian_1.3.7_amd64.deb
-sudo apt install -y obsidian.deb
-rm -rf obsidian.deb
 
 # Install KolourPaint
 sudo snap install kolourpaint
