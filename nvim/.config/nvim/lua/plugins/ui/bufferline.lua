@@ -41,13 +41,25 @@ return {
 		},
 	},
 	config = function(_, opts)
-		opts.highlights = require("catppuccin.groups.integrations.bufferline").get()
+		-- Safely check if catppuccin is available
+		local has_catppuccin, cp_bufferline = pcall(require, "catppuccin.groups.integrations.bufferline")
+
+		if has_catppuccin then
+			opts.highlights = cp_bufferline.get({
+				styles = { "italic", "bold" },
+			})
+		end
+
 		require("bufferline").setup(opts)
+
 		-- Fix bufferline when restoring a session
 		vim.api.nvim_create_autocmd("BufAdd", {
 			callback = function()
 				vim.schedule(function()
-					pcall(nvim_bufferline)
+					-- Use the global pcall safely or check if bufferline is loaded
+					pcall(function()
+						require("bufferline")
+					end)
 				end)
 			end,
 		})

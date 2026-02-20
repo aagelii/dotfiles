@@ -175,57 +175,67 @@ return {
 					},
 				},
 			},
-		},
-		basedpyright = {
-			settings = {
-				basedpyright = {
-					typeCheckingMode = "standard",
-				},
-			},
-		},
-		terraformls = {
-			settings = {
-				terraform = {
-					experimentalFeatures = {
-						validateOnSave = true,
+			basedpyright = {
+				settings = {
+					basedpyright = {
+						typeCheckingMode = "standard",
 					},
 				},
 			},
-		},
-		ts_ls = {
-			settings = {
-				completions = {
-					completeFunctionCalls = true,
+			terraformls = {
+				settings = {
+					terraform = {
+						experimentalFeatures = {
+							validateOnSave = true,
+						},
+					},
+				},
+			},
+			ts_ls = {
+				settings = {
+					completions = {
+						completeFunctionCalls = true,
+					},
 				},
 			},
 		},
 	},
 	config = function(_, opts)
 		local lspconfig = require("lspconfig")
+		local mason = require("mason")
+		local mason_lspconfig = require("mason-lspconfig")
 
-		require("mason").setup({})
-		require("mason-lspconfig").setup({})
+		-- 1. Setup Mason
+		mason.setup({})
 
-		-- Needed for nvim-ufo
+		-- 2. Base Capabilities (UFO + Blink)
 		local capabilities = vim.lsp.protocol.make_client_capabilities()
 		capabilities.textDocument.foldingRange = {
 			dynamicRegistration = false,
 			lineFoldingOnly = true,
 		}
 
-		local language_servers = vim.lsp.get_clients() -- or list servers manually like {'gopls', 'clangd'}
-		for _, ls in ipairs(language_servers) do
-			lspconfig[ls.name].setup({
-				capabilities = capabilities,
-				-- you can add other fields for setting up lsp server in this table
-			})
+		local has_blink, blink = pcall(require, "blink.cmp")
+		if has_blink then
+			capabilities = blink.get_lsp_capabilities(capabilities)
 		end
 
-		for server, config in pairs(opts.servers) do
-			-- passing config.capabilities to blink.cmp merges with the capabilities in your
-			-- `opts[server].capabilities, if you've defined it
-			config.capabilities = require("blink.cmp").get_lsp_capabilities(config.capabilities)
-			lspconfig[server].setup(config)
-		end
+		-- 3. The "Smart" Handler
+		-- This handles the auto-installation and the setup automatically
+		mason_lspconfig.setup({
+			ensure_installed = vim.tbl_keys(opts.servers or {}),
+			handlers = {
+				function(server_name)
+					local server_opts = opts.servers[server_name] or {}
+
+					-- Merge your specific server settings with the global capabilities
+					server_opts.capabilities =
+						vim.tbl_deep_extend("force", {}, capabilities, server_opts.capabilities or {})
+
+					-- This is the only place we call lspconfig
+					lspconfig[server_name].setup(server_opts)
+				end,
+			},
+		})
 	end,
 }
